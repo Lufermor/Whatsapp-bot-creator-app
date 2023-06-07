@@ -1,0 +1,125 @@
+Date: 10/5/2023
+Time: 4:38
+Phone Number: +34680683625
+Message: Hola
+--------------------
+Date: 10/5/2023
+Time: 17:46
+Phone Number: +34680683625
+Message: Hola
+--------------------
+Date: 10/5/2023
+Time: 17:50
+Phone Number: +34680683625
+Message: Hola
+--------------------
+Date: 10/5/2023
+Time: 17:54
+Phone Number: +34680683625
+Message: Hola
+--------------------
+Date: 10/5/2023
+Time: 18:20
+Phone Number: +34680683625
+Message: Hola
+--------------------
+Date: 10/5/2023
+Time: 18:20
+Phone Number: +34680683625
+Message: Hola como estas? Esta es la segunda línea Esta es la tercera línea
+--------------------
+Date: 10/5/2023
+Time: 18:21
+Phone Number: +34680683625
+Message: Hola como estas?Esta es la segunda líneaEsta es la tercera línea
+--------------------
+Date: 10/5/2023
+Time: 18:23
+Phone Number: +34680683625
+Message: Hola como estas?Esta es la segunda líneaEsta es la tercera línea
+--------------------
+Date: 10/5/2023
+Time: 18:23
+Phone Number: +34680683625
+Message: Hola como estas?Esta es la segunda líneaEsta es la tercera línea
+--------------------
+Date: 10/5/2023
+Time: 18:24
+Phone Number: +34680683625
+Message: Hola como estas?Esta es la segunda línea2Esta es la tercera línea2
+--------------------
+Date: 10/5/2023
+Time: 18:44
+Phone Number: +34680683625
+Message: Hola como estas?Esta es la segunda línea3Esta es la tercera línea3
+--------------------
+Date: 10/5/2023
+Time: 18:55
+Phone Number: +34680683625
+Message: PyAutoGUI has several features:
+--------------------
+Date: 10/5/2023
+Time: 18:56
+Phone Number: +34680683625
+Message: 
+--------------------
+Date: 10/5/2023
+Time: 18:56
+Phone Number: +34680683625
+Message: Moving the mouse and clicking in the windows of other applications.
+--------------------
+Date: 10/5/2023
+Time: 18:56
+Phone Number: +34680683625
+Message: Sending keystrokes to applications (for example, to fill out forms).
+--------------------
+Date: 10/5/2023
+Time: 18:56
+Phone Number: +34680683625
+Message: Take screenshots, and given an image (for example, of a button or checkbox), and find it on the screen.
+--------------------
+Date: 10/5/2023
+Time: 18:57
+Phone Number: +34680683625
+Message: Locate an applicationâ€™s window, and move, resize, maximize, minimize, or close it (Windows-only, currently).
+--------------------
+Date: 10/5/2023
+Time: 18:57
+Phone Number: +34680683625
+Message: Display alert and message boxes.
+--------------------
+Date: 10/5/2023
+Time: 18:58
+Phone Number: +34680683625
+Message: PyAutoGUI has several features:
+--------------------
+Date: 10/5/2023
+Time: 18:59
+Phone Number: +34680683625
+Message: 
+--------------------
+Date: 10/5/2023
+Time: 18:59
+Phone Number: +34680683625
+Message: Moving the mouse and clicking in the windows of other applications.
+--------------------
+Date: 10/5/2023
+Time: 18:59
+Phone Number: +34680683625
+Message: Sending keystrokes to applications (for example, to fill out forms).
+--------------------
+Date: 10/5/2023
+Time: 18:59
+Phone Number: +34680683625
+Message: Take screenshots, and given an image (for example, of a button or checkbox), and find it on the screen.
+--------------------
+Date: 10/5/2023
+Time: 19:0
+Phone Number: +34680683625
+Message: Locate an applicationâ€™s window, and move, resize, maximize, minimize, or close it (Windows-only, currently).
+--------------------
+Date: 10/5/2023
+Time: 19:0
+Phone Number: +34680683625
+Message: Display alert and message boxes.
+--------------------

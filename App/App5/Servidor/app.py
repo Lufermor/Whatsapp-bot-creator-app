@@ -49,6 +49,34 @@ def listusers():
     results = users_schema.dump(all_users)
     return jsonify(results)
 
+@app.route('/userdetails/<id>', methods = ['GET'])
+def userdetails(id):
+    """Devuelve un usuario del que se pasa su id"""
+    user = User.query.get(id)
+    return user_schema.jsonify(user)
+
+@app.route('/userupdate/<id>', methods=['PUT'])
+def userupdate(id):
+    """Modifica un usuario con los name y 
+        email que le llegan en la petición"""
+    user = User.query.get(id)
+
+    name = request.json['name']
+    email = request.json['email']
+
+    user.name = name
+    user.email = email
+
+    db.session.commit()
+    return user_schema.jsonify(user)
+
+@app.route('/userdelete/<id>', methods=['DELETE'])
+def userdelete(id):
+    user = User.query.get(id)
+    db.session.delete(user)
+    db.session.commit()
+    return user_schema.jsonify(user)
+
 @app.route('/useradd', methods=['POST'])
 def useradd():
     """Añade un usuario a la BBDD con el name y email 

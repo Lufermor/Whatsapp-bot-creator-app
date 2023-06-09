@@ -1,10 +1,12 @@
 from flask import Flask, jsonify, request
 from flask_marshmallow import Marshmallow
+from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 import datetime
 
 app = Flask(__name__)
 ma = Marshmallow(app)
+CORS(app)
 
 # Configuración de la base de datos                   username:password@hostname/database
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:root@localhost/tfg_dam_1"
@@ -61,20 +63,25 @@ def userupdate(id):
         email que le llegan en la petición"""
     user = User.query.get(id)
 
-    name = request.json['name']
-    email = request.json['email']
+    if user is not None:
+        name = request.json['name']
+        email = request.json['email']
 
-    user.name = name
-    user.email = email
+        user.name = name
+        user.email = email
 
-    db.session.commit()
+        db.session.commit()
     return user_schema.jsonify(user)
 
 @app.route('/userdelete/<id>', methods=['DELETE'])
 def userdelete(id):
+    """Elimina un usuario de la base de datos si existe"""
     user = User.query.get(id)
-    db.session.delete(user)
-    db.session.commit()
+
+    if user is not None:
+        db.session.delete(user)
+        db.session.commit()
+    
     return user_schema.jsonify(user)
 
 @app.route('/useradd', methods=['POST'])

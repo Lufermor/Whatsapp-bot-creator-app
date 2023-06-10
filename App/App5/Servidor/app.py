@@ -4,6 +4,7 @@ from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 import datetime
 
+# Create an instance of Flask with argument being the name of the application’s module (__name__)
 app = Flask(__name__)
 ma = Marshmallow(app)
 CORS(app)

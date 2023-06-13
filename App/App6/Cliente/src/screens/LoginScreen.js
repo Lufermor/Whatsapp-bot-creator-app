@@ -1,56 +1,10 @@
-import 'react-native-gesture-handler';
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Button, Text, View, Image, TouchableOpacity } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
+import { useNavigation } from '@react-navigation/native';
 
-import Home001 from './src/screens/Home001';
-import Home002 from './src/screens/Home002';
-import ClassHome001 from './src/screens/ClassHome001';
-import CreateArticles001 from './src/screens/CreateArticles001';
-import Details001 from './src/screens/Details001';
-import Edit001 from './src/screens/Edit001';
-import Delete001 from './src/screens/Delete001';
-import LoginScreen from './src/screens/LoginScreen';
-
-import Contants from 'expo-constants';
-
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-
-const Stack = createStackNavigator();
-
-function App(){
-  return (
-    <Stack.Navigator initialRouteName="LoginScreen">
-      <Stack.Screen
-          name="LoginScreen"
-          component={LoginScreen}
-          options={{ headerShown: false }}
-          initialParams={{
-            onLoginSuccess: () => navigation.navigate("Home0022222"),
-          }}
-        />
-      <Stack.Screen name = "Home0022222" component={Home002} />
-      <Stack.Screen name = "CreateArticles0011" component={CreateArticles001} />
-      <Stack.Screen name = "Details001" component={Details001} />
-      <Stack.Screen name = "Edit001" component={Edit001} />
-      <Stack.Screen name = "Delete001" component={Delete001} />
-    </Stack.Navigator>
-  );
-}
-
-export default() => {
-  return (
-    <NavigationContainer>
-      <App />
-    </NavigationContainer>
-  )
-}
-
-// Ahora vamos a empezar a usar navigation, por lo tanto todo esto comentado que es lo de antes no aplicará tal cual
-/*
 // Ventana que nos va a permitir abrir la modal al momento de la autenticación
 WebBrowser.maybeCompleteAuthSession();
 
@@ -58,17 +12,20 @@ const WEB_CLIENT_ID = "1038271761206-svvrvcl989fc825koe67allv39fuus4j.apps.googl
 const IOS_CLIENT_ID = "1038271761206-jihoh4nus97fcv00e4unnsh41atu0t8d.apps.googleusercontent.com";
 const ANDROID_CLIENT_ID = "1038271761206-hn2fvl057pvq4g00ekjofglgkmocieoa.apps.googleusercontent.com";
 
-export default function App() {
+export default function LoginScreen({ onLoginSuccess }) {
   // Este accessToken nos ayuda a autenticarnos para obtener la información de google del usuaro que está autenticado
   const [accessToken, setAccessToken] = React.useState(null); //Lo inicializamos a null ya que en principio no hay sesión iniciada
   // La siguiente variable user se usa para guardar la información del usuario
   const [user, setUser] = React.useState(null); //Lo inicializamos a null ya que en principio no tenemos usuario
-  // 
   const [request, response, promptAsync] = Google.useAuthRequest({
     clientId: WEB_CLIENT_ID,
     iosClientId: IOS_CLIENT_ID,
     androidClientId: ANDROID_CLIENT_ID
   });
+
+  // Obtenemos el objeto de navegación:
+  const navigation = useNavigation();
+
   // Este use effect nos va a ayudar para que cuando la aplicación se cargue podamos ver si el usuario tiene una sesión o no, o quiere iniciar una sesión
   React.useEffect(() => {
     // En caso de que tengamos una respuesta, comprobamos si es success
@@ -77,7 +34,7 @@ export default function App() {
       setAccessToken(response.authentication.accessToken);
       // De esta manera nos aseguramos de que fetchUserInfo se ejecute sí y solo sí tenemos el accessToken (accessToken != null):
       accessToken && fetchUserInfo();
-      //onLoginSuccess && onLoginSuccess();
+      onLoginSuccess && onLoginSuccess();
     }
   }, [response, accessToken]) //Cada que cambie la response o el accessToken se hace fetch de los datos del usuario (Esto es, cada que haya cambio de login)
 
@@ -95,8 +52,15 @@ export default function App() {
     //sendUser(useInfo);
   }
 
-  // constante de prueba para ver como pasar parámetros de componentes padres a hijos
-  const name001 = "some name"
+  // Esta funcion nos ayudará a meter usuarios en la base de datos
+  const sendUser = async (user) => {
+    try {
+      const response = await axios.post('http://' + ip + ':3000/insertUsuario', user);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   // Este componente nos va a permitir renderizar la información del usuario si es que está logueado 
   const ShowUserInfo = () => {
@@ -106,15 +70,10 @@ export default function App() {
           <Text style={{ fontSize: 35, fontWeight: 'bold', marginBottom: 20 }}>Welcome</Text>
           <Image source={{ uri: user.picture }} style={{ width: 100, height: 100, borderRadius: 50 }} />
           <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{user.name}</Text>
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('HomeScreen')}>
+          {/* Quizás me plantee cambiar este TouchableOpacity por un button */}
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home0022222')}>
             <Text style={styles.buttonText}>Continue</Text>
           </TouchableOpacity>
-          {/*
-          <Home001 name001 = {name001} />
-          <ClassHome001 name002 = "ClassHome001 name" />
-          *//*}
-          <CreateArticles001 />
-          <Home002 />
         </View>
       )
     }
@@ -134,25 +93,19 @@ export default function App() {
               promptAsync();
             }}
           >
-            <Image source={require("./src/assets/images/login/btn.jpeg")} style={{ width: 300, height: 40 }} />
+            <Image source={require("../assets/images/login/btn.jpeg")} style={{ width: 300, height: 40 }} />
           </TouchableOpacity>
         </>
       }
     </View>
   );
 }
-*/
+
 const styles = StyleSheet.create({
   container: {
-    // flex: 1 significa que estará a pantalla completa
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  container2: {
-    flex: 1,
-    backgroundColor: '#eddfdf',
-    marginTop:Contants.statusBarHeight
-  }
 });

@@ -105,4 +105,7 @@ def article_delete(id):
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    app.run(debug=True)
+    # app.run(debug=True)
+    # Tenemos uqe poner como host nuestra ipv4 porque sino recibiremos network request failed
+    app.run(host = '192.168.1.136', port= 3000, debug=True)
+    #app.run(host = '0.0.0.0', port= 3000, debug=True)

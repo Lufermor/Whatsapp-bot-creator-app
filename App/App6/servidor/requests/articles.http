@@ -1,0 +1,30 @@
+# @api = http://192.168.1.136:3000  # IP Piso
+@api = http://192.168.10.29:3000 # IP Bt3
+
+
+POST {{api}}/add_article
+Content-Type: application/json
+
+{
+    "title":"desde articles.http",
+    "body":"el cuerpo"
+}
+
+###
+GET {{api}}/list_articles
+
+###
+GET {{api}}/article_details/3
+
+###
+PUT {{api}}/article_update/5
+Content-Type: application/json
+
+{
+    "title":"updated desde articles.http",
+    "body":"el cuerpo updated"
+}
+
+###
+DELETE {{api}}/article_delete/15
+

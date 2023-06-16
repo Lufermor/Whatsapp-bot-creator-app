@@ -8,12 +8,11 @@ def articles_register_routes(app):
     app.route("/", methods=['GET'])(Article_controller.hello_world)
 
     # Rutas article
-    app.route("/list_articles", methods=['GET'])(Article_controller.list_articles)
-    app.route("/add_article", methods=['POST'])(Article_controller.add_article)
-    app.route("/article_details/<id>", methods=['GET'])(Article_controller.article_details)
-    app.route("/article_update/<id>", methods=['PUT'])(Article_controller.article_update)
-    app.route("/article_delete/<id>", methods=['DELETE'])(Article_controller.article_delete)
+    app.route("/articles", methods=['GET'])(Article_controller.get_articles)
+    app.route("/articles", methods=['POST'])(Article_controller.add_article)
+    app.route("/articles/<id>", methods=['GET'])(Article_controller.article_details)
+    app.route("/articles/<id>", methods=['PUT'])(Article_controller.update_article)
+    app.route("/articles/<id>", methods=['DELETE'])(Article_controller.delete_article)
+    app.route("/articles/count", methods=['GET'])(Article_controller.get_articles_count)
+    app.route("/articles/get-by-title/<title>", methods=['GET'])(Article_controller.get__article_by_title)
 
-    # Especificaciones:
-    # app.route("/api/docs", methods=['GET'])(lambda: specs(app))  
-    # def spec(): return jsonify(swagger(app))

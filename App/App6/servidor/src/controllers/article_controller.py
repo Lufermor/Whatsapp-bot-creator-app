@@ -16,7 +16,7 @@ class Article_controller:
         return jsonify({"Hello": "world"})
         #return "<p>Hello, World!</p>"
 
-    def list_articles():
+    def get_articles():
         """Lista todos los artículos de la base de datos y los devuelve 
             formateados con ayuda de la clase ArticleSchema"""
         all_articles = Article.query.all()
@@ -44,7 +44,7 @@ class Article_controller:
         article = Article.query.get(id)
         return article_schema.jsonify(article)
 
-    def article_update(id):
+    def update_article(id):
         """Modifica un artículo con los title y 
             body que le llegan en la petición"""
         article = Article.query.get(id)
@@ -59,7 +59,7 @@ class Article_controller:
             db.session.commit()
         return article_schema.jsonify(article)
 
-    def article_delete(id):
+    def delete_article(id):
         """Elimina un artículo de la base de datos si existe"""
         article = Article.query.get(id)
 
@@ -68,15 +68,15 @@ class Article_controller:
             db.session.commit()
         
         return article_schema.jsonify(article)
-    
-    @staticmethod
+
     def get__article_by_title(title):
         """Obtiene un artículo por su título"""
-        return Article.query.filter_by(title=title).first()
+        return article_schema.jsonify(Article.query.filter_by(title=title).first())
     
-    def get_articles_number():
+    def get_articles_count():
         """Obtiene el número de artículos en la BBDD"""
-        return Article.query.all().count()  # Creo que esto sí funciona
+        return str(Article.query.count())
+        # return Article.query.all().count()  # Creo que esto sí funciona
         # Según se ha leído, .count() es lento en mysql, así que la siguiente expresión 
         #   Es una alternativa más rápida.
         # return db.session.execute(Article.query.filter_by(condition).statement.with_only_columns([func.count()]).order_by(None)).scalar()

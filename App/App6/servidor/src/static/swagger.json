@@ -94,6 +94,37 @@
           }
         }
       },
+      "put": {
+        "tags": [
+          "Add todo to API"
+        ],
+        "summary": "Add todo",
+        "requestBody": {
+          "description": "Post New todo To Database",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TodoList"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/TodoList"
+            }
+          },
+          "404": {
+            "description": "NOT FOUND",
+            "schema": {
+              "$ref": "#/components/schemas/TodoList"
+            }
+          }
+        }
+      },
       "get": {
         "tags": [
           "Get All todos from API"
@@ -150,7 +181,7 @@
       },
       "put": {
         "tags": [
-          "Update todos on API"
+          "Articles"
         ],
         "parameters": [
           {

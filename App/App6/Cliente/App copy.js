@@ -6,11 +6,12 @@ import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 
 import Home001 from './src/screens/Home001';
-import ArticlesHome from './src/screens/ArticlesHome';
+import Home002 from './src/screens/Home002';
 import ClassHome001 from './src/screens/ClassHome001';
-import ArticlesCreate from './src/screens/ArticlesCreate';
-import ArticleDetails from './src/screens/ArticleDetails';
-import ArticleEdit from './src/screens/ArticleEdit';
+import CreateArticles001 from './src/screens/CreateArticles001';
+import Details001 from './src/screens/Details001';
+import Edit001 from './src/screens/Edit001';
+import Delete001 from './src/screens/Delete001';
 import LoginScreen from './src/screens/LoginScreen';
 
 import Contants from 'expo-constants';
@@ -29,13 +30,14 @@ function App(){
           component={LoginScreen}
           options={{ headerShown: false }}
           initialParams={{
-            onLoginSuccess: () => navigation.navigate("ArticlesHome"),
+            onLoginSuccess: () => navigation.navigate("Home0022222"),
           }}
         />
-      <Stack.Screen name = "ArticlesHome" component={ArticlesHome} />
-      <Stack.Screen name = "ArticlesCreate" component={ArticlesCreate} />
-      <Stack.Screen name = "ArticleDetails" component={ArticleDetails} />
-      <Stack.Screen name = "ArticleEdit" component={ArticleEdit} />
+      <Stack.Screen name = "Home0022222" component={Home002} />
+      <Stack.Screen name = "CreateArticles0011" component={CreateArticles001} />
+      <Stack.Screen name = "Details001" component={Details001} />
+      <Stack.Screen name = "Edit001" component={Edit001} />
+      <Stack.Screen name = "Delete001" component={Delete001} />
     </Stack.Navigator>
   );
 }

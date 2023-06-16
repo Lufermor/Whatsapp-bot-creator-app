@@ -20,7 +20,7 @@ function Delete001(props) {
       .then(resp => resp.json())
       .then(data => {
         // props.route.params.updateData(data); // Esta funciona
-        props.navigation.navigate('Home0022222', { data: data })
+        props.navigation.navigate('ArticlesHome', { data: data })
       })
       .catch(error => console.log(error))
   }

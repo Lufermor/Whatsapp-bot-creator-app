@@ -1,17 +1,19 @@
 from flask_swagger_ui import get_swaggerui_blueprint
 
+import os
+
 
 from api.articles_routes import articles_register_routes;
 from api.specs_routes import specs_register_routes;
 
 class Config:
     # Database configuration               username:password@hostname/database
-    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:root@localhost/tfg_dam_app6"
+    SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI")
     # Esta línea no es obligatoria pero si no la ponemos salta un warning, se recomienda así en la doc oficial
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    # HOST = '192.168.1.136'  # Host Piso
-    HOST = '192.168.10.29'  # Host bt3
-    PORT = 3000
+    HOST = os.getenv("HOST")  # Host Piso
+    # HOST = os.getenv("NICKNAME")  # Host bt3
+    PORT = os.getenv("PORT")
     DEBUG = True
 
     # Swagger config

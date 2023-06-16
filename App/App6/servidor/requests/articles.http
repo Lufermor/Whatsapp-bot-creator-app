@@ -1,8 +1,11 @@
-# @api = http://192.168.1.136:3000  # IP Piso
-@api = http://192.168.10.29:3000 # IP Bt3
+# IP Piso
+@api = http://192.168.1.136:3000
+
+# IP Bt3
+# @api = http://192.168.10.29:3000 
 
 
-POST {{api}}/add_article
+POST {{api}}/articles
 Content-Type: application/json
 
 {
@@ -11,13 +14,13 @@ Content-Type: application/json
 }
 
 ###
-GET {{api}}/list_articles
+GET {{api}}/articles
 
 ###
-GET {{api}}/article_details/3
+GET {{api}}/articles/3
 
 ###
-PUT {{api}}/article_update/5
+PUT {{api}}/articles/5
 Content-Type: application/json
 
 {
@@ -26,5 +29,13 @@ Content-Type: application/json
 }
 
 ###
-DELETE {{api}}/article_delete/15
+DELETE {{api}}/articles/15
 
+###
+GET {{api}}/api/docs
+
+###
+GET {{api}}/articles/count
+
+###
+GET {{api}}/articles/get-by-title/28

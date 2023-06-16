@@ -71,7 +71,7 @@ export default function LoginScreen({ onLoginSuccess }) {
           <Image source={{ uri: user.picture }} style={{ width: 100, height: 100, borderRadius: 50 }} />
           <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{user.name}</Text>
           {/* Quizás me plantee cambiar este TouchableOpacity por un button */}
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home0022222')}>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ArticlesHome')}>
             <Text style={styles.buttonText}>Continue</Text>
           </TouchableOpacity>
         </View>

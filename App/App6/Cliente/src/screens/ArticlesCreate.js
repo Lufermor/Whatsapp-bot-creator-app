@@ -1,40 +1,37 @@
 
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, } from 'react-native';
-import { TextInput, Button } from 'react-native-paper';
+import React, { useState, useEffect } from 'react'; //Cuando queremos fetch data, necesitamos usar useEffect
+import { StyleSheet, View, Text, FlatList } from 'react-native';
+import { Card, FAB, TextInput, Button } from 'react-native-paper';
+import { useNavigation } from "@react-navigation/native";
 
-function Edit001(props) {
+import Layout from '../components/Layout';
+import { saveArticle } from '../../api';
 
-  const data = props.route.params.data;
+function ArticlesCreate(props) {
 
-  const [title, setTitle] = useState(data.title)
-  const [body, setBody] = useState(data.body)
+  const navigation = useNavigation();
 
-  const updateData = (id) => {
-    fetch(`http://192.168.1.136:3000/article_update/${data.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ title: title, body: body }),
-    })
-      .then(resp => resp.json())
+  const [title, setTitle] = useState("")
+  const [body, setBody] = useState("")
+
+  const insertData = async () => {
+    await saveArticle(title, body)
       .then(data => {
-        // props.route.params.updateData(data); // Esta funciona
-        props.navigation.navigate('Details001', {data: data})
+        navigation.navigate('ArticleDetails', { data: data })
       })
       .catch(error => console.log(error))
   }
 
   return (
-    <View>
+    <Layout>
+      <View style={{ flex: 1 }}>
       <TextInput style={styles.inputStyle}
         label="Title"
         value={title}
         mode="outlined"
         onChangeText={text => setTitle(text)}
       />
-      <TextInput style={{ padding: 15 }}
+      <TextInput style={{ padding: 10 }}
         label="Description"
         value={body}
         multiline
@@ -45,9 +42,11 @@ function Edit001(props) {
       <Button
         style={{ margin: 10 }}
         icon="pencil"
-        onPress={() => updateData()}
-      >Update Article</Button>
-    </View>
+        mode='contained'
+        onPress={() => insertData()}
+      >Insert Article</Button>
+      </View>
+    </Layout>
   )
 }
 
@@ -63,6 +62,7 @@ const styles = StyleSheet.create({
     color: 'blue',
     padding: 10,
     margin: 5,
+    flex: 1,
   },
   cardStyle: {
     margin: 2,
@@ -80,4 +80,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Edit001
+export default ArticlesCreate

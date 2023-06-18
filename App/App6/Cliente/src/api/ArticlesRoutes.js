@@ -1,7 +1,8 @@
 //import { ip } from './Config';
 //const API = 'http://192.168.10.22:3000/tasks';
 //const API = 'http://' + ip + ':3000/tasks'
-const API = 'http://192.168.1.136:3000/articles';
+import { api_ip } from "../../Config";
+const API = api_ip + '/articles';
 
 
 export const deleteArticle = async (id) => {

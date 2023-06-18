@@ -2,9 +2,16 @@ from flask_swagger_ui import get_swaggerui_blueprint
 
 import os
 
-
 from api.articles_routes import articles_register_routes;
 from api.specs_routes import specs_register_routes;
+from api.users_routes import users_register_routes;
+from api.bots_routes import bots_register_routes;
+from api.messages_routes import mensajes_register_routes;
+from api.cliente_routes import clientes_register_routes;
+from api.palabra_clave_routes import palabras_clave_register_routes;
+from api.plantillas_routes import plantillas_register_routes;
+from api.programacion_routes import programacion_register_routes;
+from api.respuestas_automaticas_routes import respuestas_automaticas_register_routes;
 
 class Config:
     # Database configuration               username:password@hostname/database
@@ -27,4 +34,9 @@ class Config:
         },
     )
 
-directorios_rutas = [articles_register_routes, specs_register_routes]
+directorios_rutas = [articles_register_routes, specs_register_routes, 
+                     users_register_routes, bots_register_routes, 
+                     mensajes_register_routes, clientes_register_routes,
+                     palabras_clave_register_routes, programacion_register_routes,
+                     plantillas_register_routes,respuestas_automaticas_register_routes,
+                     ]

@@ -76,11 +76,3 @@ class Article_controller:
     def get_articles_count():
         """Obtiene el número de artículos en la BBDD"""
         return str(Article.query.count())
-        # return Article.query.all().count()  # Creo que esto sí funciona
-        # Según se ha leído, .count() es lento en mysql, así que la siguiente expresión 
-        #   Es una alternativa más rápida.
-        # return db.session.execute(Article.query.filter_by(condition).statement.with_only_columns([func.count()]).order_by(None)).scalar()
-        # otra alternativa:
-        # from sqlalchemy.sql.functions import func
-        # number = session.query(func.count(table.id).label('number').first().number
-        # Equivale a -> Select count(table.id) as number from table <- en mysql

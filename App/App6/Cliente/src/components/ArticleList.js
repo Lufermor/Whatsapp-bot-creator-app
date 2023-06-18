@@ -3,7 +3,7 @@ import { StyleSheet, FlatList, SafeAreaView, RefreshControl} from "react-native"
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 
 import ArticleItem from "./ArticleItem";
-import { getArticles } from "../../api";
+import { getArticles } from "../api/ArticlesRoutes";
 
 
 const ArticleList = () => {

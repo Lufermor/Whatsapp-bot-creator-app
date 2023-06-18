@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 
 import Layout from '../components/Layout';
-import { updateArticle } from '../../api';
+import { updateArticle } from '../api/ArticlesRoutes';
 
 function ArticleEdit(props) {
 

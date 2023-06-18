@@ -59,7 +59,7 @@ CREATE TABLE `bots` (
   `hora_inicio_actividad` time DEFAULT NULL,
   `hora_fin_actividad` time DEFAULT NULL,
   PRIMARY KEY (`bot_id`),
-  KEY `usuario_id` (`usuario_id`),
+  UNIQUE KEY `unique_user_nombre_bot` (`usuario_id`,`nombre`),
   CONSTRAINT `bots_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -105,7 +105,9 @@ CREATE TABLE `clientes` (
   `nombre` varchar(100) DEFAULT NULL,
   `telefono` varchar(100) NOT NULL,
   `fecha_creacion` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`cliente_id`)
+  PRIMARY KEY (`cliente_id`),
+  UNIQUE KEY `unique_usuario_telefono` (`usuario_id`,`telefono`),
+  CONSTRAINT `fk_clientes_usuarios` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -177,7 +179,7 @@ CREATE TABLE `palabras_clave` (
   `bot_id` int DEFAULT NULL,
   `palabra_clave` varchar(100) NOT NULL,
   PRIMARY KEY (`palabra_clave_id`),
-  KEY `bot_id` (`bot_id`),
+  UNIQUE KEY `unique_bot_keyword` (`bot_id`,`palabra_clave`),
   CONSTRAINT `palabras_clave_ibfk_1` FOREIGN KEY (`bot_id`) REFERENCES `bots` (`bot_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -204,7 +206,7 @@ CREATE TABLE `plantillas` (
   `contenido` text NOT NULL,
   `nombre` varchar(100) NOT NULL,
   PRIMARY KEY (`plantilla_id`),
-  KEY `bot_id` (`bot_id`),
+  UNIQUE KEY `unique_bot_nombre_plantilla` (`bot_id`,`nombre`),
   CONSTRAINT `plantillas_ibfk_1` FOREIGN KEY (`bot_id`) REFERENCES `bots` (`bot_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -236,7 +238,7 @@ CREATE TABLE `programacion` (
   KEY `mensaje_id` (`mensaje_id`),
   KEY `destinatario_id` (`destinatario_id`),
   CONSTRAINT `programacion_ibfk_1` FOREIGN KEY (`bot_id`) REFERENCES `bots` (`bot_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `programacion_ibfk_2` FOREIGN KEY (`mensaje_id`) REFERENCES `mensajes` (`mensaje_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `programacion_ibfk_2` FOREIGN KEY (`mensaje_id`) REFERENCES `plantillas` (`plantilla_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `programacion_ibfk_3` FOREIGN KEY (`destinatario_id`) REFERENCES `clientes` (`cliente_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -296,9 +298,8 @@ CREATE TABLE `usuarios` (
   `telefono` varchar(30) DEFAULT NULL,
   `fecha_creacion` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`usuario_id`),
-  UNIQUE KEY `correo` (`correo`),
-  UNIQUE KEY `telefono` (`telefono`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  UNIQUE KEY `correo` (`correo`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -307,6 +308,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
+INSERT INTO `usuarios` VALUES (1,'Luis Fernando Moreno','luisfergoza@gmail.com',NULL,'101933550419240356488','2023-06-18 05:18:30');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -402,4 +404,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-18  3:41:09
+-- Dump completed on 2023-06-18 10:17:46

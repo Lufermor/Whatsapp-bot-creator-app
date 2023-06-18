@@ -5,7 +5,7 @@ import { TextInput, Button } from 'react-native-paper';
 import { useNavigation } from "@react-navigation/native";
 
 import Layout from '../components/Layout';
-import { saveArticle } from '../../api';
+import { saveArticle } from '../api/ArticlesRoutes';
 
 function ArticlesCreate(props) {
 

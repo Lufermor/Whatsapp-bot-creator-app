@@ -5,7 +5,7 @@ import { Card, FAB, TextInput, Button } from 'react-native-paper';
 import { useNavigation } from "@react-navigation/native";
 
 import Layout from '../components/Layout';
-import { deleteArticle } from '../../api';
+import { deleteArticle } from '../api/ArticlesRoutes';
 
 function ArticleDetails(props) {
 

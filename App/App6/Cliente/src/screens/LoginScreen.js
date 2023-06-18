@@ -5,6 +5,8 @@ import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import { useNavigation } from '@react-navigation/native';
 
+import { saveUser } from '../api/UserRoutes';
+
 // Ventana que nos va a permitir abrir la modal al momento de la autenticación
 WebBrowser.maybeCompleteAuthSession();
 
@@ -49,14 +51,19 @@ export default function LoginScreen({ onLoginSuccess }) {
     const useInfo = await response.json();
     //Guardamos la información en nuestra variable del usuario:
     setUser(useInfo);
-    //sendUser(useInfo);
+    sendUser(useInfo);
   }
 
   // Esta funcion nos ayudará a meter usuarios en la base de datos
   const sendUser = async (user) => {
     try {
-      const response = await axios.post('http://' + ip + ':3000/insertUsuario', user);
-      console.log(response.data);
+      await saveUser(user)
+      .then(data => {
+        console.log(data)
+      })
+      .catch(error => console.log(error))
+      // const response = await axios.post('http://' + ip + ':3000/insertUsuario', user);
+      // console.log(response.data);
     } catch (error) {
       console.error(error);
     }

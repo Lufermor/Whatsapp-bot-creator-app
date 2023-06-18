@@ -25,5 +25,5 @@ if __name__ == '__main__':
         db.create_all()
     # app.run(debug=True)
     # Tenemos uqe poner como host nuestra ipv4 porque sino recibiremos network request failed
-    app.run(host = Config.HOST, port= Config.PORT, debug=Config.DEBUG)
-    # app.run(host = '0.0.0.0', port= 3000, debug=True)
+    # app.run(host = Config.HOST, port= Config.PORT, debug=Config.DEBUG)
+    app.run(host = '0.0.0.0', port= 3000, debug=True)

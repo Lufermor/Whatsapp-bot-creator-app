@@ -12,6 +12,7 @@ from api.palabra_clave_routes import palabras_clave_register_routes;
 from api.plantillas_routes import plantillas_register_routes;
 from api.programacion_routes import programacion_register_routes;
 from api.respuestas_automaticas_routes import respuestas_automaticas_register_routes;
+from api.active_bot_routes import active_bot_routes;
 
 class Config:
     # Database configuration               username:password@hostname/database
@@ -39,4 +40,5 @@ directorios_rutas = [articles_register_routes, specs_register_routes,
                      mensajes_register_routes, clientes_register_routes,
                      palabras_clave_register_routes, programacion_register_routes,
                      plantillas_register_routes,respuestas_automaticas_register_routes,
+                     active_bot_routes
                      ]

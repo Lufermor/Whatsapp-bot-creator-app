@@ -33,6 +33,7 @@ class Bot_controller:
             nombre = request.json['nombre']
             hora_inicio_actividad = request.json['hora_inicio_actividad']
             hora_fin_actividad = request.json['hora_fin_actividad']
+            print(request.json)
 
             # Verificar si ya existe un bot con el mismo usuario_id y nombre
             existente = Bot.query.filter_by(usuario_id=usuario_id, nombre=nombre).first()
@@ -42,12 +43,13 @@ class Bot_controller:
             # Verificar el formato de las horas (HH:MM)
             hora_inicio_valida = validate_time_format(hora_inicio_actividad)
             hora_fin_valida = validate_time_format(hora_fin_actividad)
-            if not hora_inicio_valida or not hora_fin_valida:
-                return jsonify({"Error": "El formato de las horas no es válido. Debe ser HH:MM:SS"})
+            # if not hora_inicio_valida or not hora_fin_valida:
+            #     return jsonify({"Error": "El formato de las horas no es válido. Debe ser HH:MM:SS"})
 
             # Verificar el orden de las horas
-            if hora_inicio_actividad >= hora_fin_actividad:
-                return jsonify({"Error": "La hora de inicio de actividad debe ser menor que la hora de fin de actividad"})
+            # if hora_inicio_actividad >= hora_fin_actividad:
+            #     print("La hora de inicio de actividad debe ser menor que la hora de fin de actividad")
+            #     return jsonify({"Error": "La hora de inicio de actividad debe ser menor que la hora de fin de actividad"})
 
             # Cambiar el valor 'activo' a los demás bots del mismo usuario
             otros_bots = Bot.query.filter_by(usuario_id=usuario_id).all()
@@ -80,23 +82,29 @@ class Bot_controller:
     def update_bot(bot_id):
         """Modifica un bot con los atributos que llegan en la petición"""
         bot = Bot.query.get(bot_id)
+        print(bot_id)
+        print(bot_schema.jsonify(bot))
 
         if bot is not None:
             bot.nombre = request.json['nombre']
             hora_inicio_actividad = request.json['hora_inicio_actividad']
             hora_fin_actividad = request.json['hora_fin_actividad']
+            print(request.json)
 
             # Verificar si ya existe otro bot con el mismo usuario_id y nombre
             existente = Bot.query.filter(Bot.bot_id != bot_id, Bot.usuario_id == bot.usuario_id, Bot.nombre == bot.nombre).first()
             if existente:
+                print("Ya existe otro bot con el mismo usuario_id y nombre")
                 return jsonify({"Error": "Ya existe otro bot con el mismo usuario_id y nombre"})
 
             # Verificar el formato de las horas de inicio y fin
-            if not validate_time_format(hora_inicio_actividad) or not validate_time_format(hora_fin_actividad):
-                return jsonify({"Error": "El formato de las horas de inicio o fin no es válido"})
+            # if not validate_time_format(hora_inicio_actividad) or not validate_time_format(hora_fin_actividad):
+            #     print("El formato de las horas de inicio o fin no es válido")
+            #     return jsonify({"Error": "El formato de las horas de inicio o fin no es válido"})
 
             # Verificar si la hora de inicio es menor que la hora de fin
             if hora_inicio_actividad >= hora_fin_actividad:
+                print("La hora de inicio debe ser menor que la hora de fin")
                 return jsonify({"Error": "La hora de inicio debe ser menor que la hora de fin"})
 
             # Cambiar el valor 'activo' a los demás bots del mismo usuario si se está activando este bot
@@ -107,8 +115,18 @@ class Bot_controller:
 
             bot.hora_inicio_actividad = hora_inicio_actividad
             bot.hora_fin_actividad = hora_fin_actividad
+            print(bot_schema.jsonify(bot))
 
-            db.session.commit()
+            try:
+                db.session.commit()
+                print("En el try")
+            except Exception as e:
+                print(e)
+        else:
+            print("bot is none")
 
+        print(bot_schema.jsonify(bot))
+        db.session.commit()
         return bot_schema.jsonify(bot)
+
 

@@ -62,3 +62,8 @@ class User_controller:
             db.session.commit()
 
         return user_schema.jsonify(user)
+    
+    def get_user_by_email(user_email):
+        """Devuelve un usuario dado su correo electrónico"""
+        user = User.query.filter_by(correo=user_email).first()
+        return user_schema.jsonify(user)

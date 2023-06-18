@@ -11,8 +11,8 @@ function ArticlesCreate(props) {
 
   const navigation = useNavigation();
 
-  const [title, setTitle] = useState("")
-  const [body, setBody] = useState("")
+  // const [title, setTitle] = useState("")
+  // const [body, setBody] = useState("")
   const [article, setArticle] = useState({
     title: "",
     body: "",

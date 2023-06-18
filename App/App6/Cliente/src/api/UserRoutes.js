@@ -47,3 +47,10 @@ export const updateUser = async (userId, updatedUser) => {
   });
   return res;
 };
+
+export const getUserByEmail = async (email) => {
+  const res = await fetch(`${API}/email/${email}`);
+  const user = await res.json();
+  return user;
+};
+

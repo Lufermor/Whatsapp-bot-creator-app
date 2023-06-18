@@ -1,8 +1,10 @@
 import { StyleSheet } from 'react-native';
 import { FAB } from 'react-native-paper';
+import { useContext } from 'react';
 
 import ArticleList from '../components/ArticleList';
 import Layout from '../components/Layout'
+import { UserContext } from '../UserContext';
 
 // When attributes are sent to this screen, they will be found in props.
 function ArticlesHome(props) {

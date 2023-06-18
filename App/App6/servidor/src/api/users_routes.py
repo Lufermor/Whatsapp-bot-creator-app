@@ -8,3 +8,5 @@ def users_register_routes(app):
     app.route("/users/<user_id>", methods=['GET'])(User_controller.get_user)
     app.route("/users/<user_id>", methods=['PUT'])(User_controller.update_user)
     app.route("/users/<user_id>", methods=['DELETE'])(User_controller.delete_user)
+    # Ruta adicional para buscar a un usuario por su correo
+    app.route("/users/email/<user_email>", methods=['GET'])(User_controller.get_user_by_email)

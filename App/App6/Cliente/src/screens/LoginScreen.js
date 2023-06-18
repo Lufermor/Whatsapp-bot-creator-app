@@ -1,20 +1,23 @@
 import * as React from 'react';
+import { useContext } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Button, Text, View, Image, TouchableOpacity } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import { useNavigation } from '@react-navigation/native';
 
-import { saveUser } from '../api/UserRoutes';
+import { saveUser, getUserByEmail } from '../api/UserRoutes';
+import { WEB_CLIENT_ID, IOS_CLIENT_ID, ANDROID_CLIENT_ID } from '../../Config';
+import { UserContext } from '../UserContext';
 
 // Ventana que nos va a permitir abrir la modal al momento de la autenticación
 WebBrowser.maybeCompleteAuthSession();
 
-const WEB_CLIENT_ID = "1038271761206-svvrvcl989fc825koe67allv39fuus4j.apps.googleusercontent.com";
-const IOS_CLIENT_ID = "1038271761206-jihoh4nus97fcv00e4unnsh41atu0t8d.apps.googleusercontent.com";
-const ANDROID_CLIENT_ID = "1038271761206-hn2fvl057pvq4g00ekjofglgkmocieoa.apps.googleusercontent.com";
-
 export default function LoginScreen({ onLoginSuccess }) {
+
+  // Esta constante la usaremos para poder guardar y acceder a los datos del usuario desde otras pantallas
+  const { updateUserEmail, updateUserId } = useContext(UserContext);
+
   // Este accessToken nos ayuda a autenticarnos para obtener la información de google del usuaro que está autenticado
   const [accessToken, setAccessToken] = React.useState(null); //Lo inicializamos a null ya que en principio no hay sesión iniciada
   // La siguiente variable user se usa para guardar la información del usuario
@@ -40,6 +43,17 @@ export default function LoginScreen({ onLoginSuccess }) {
     }
   }, [response, accessToken]) //Cada que cambie la response o el accessToken se hace fetch de los datos del usuario (Esto es, cada que haya cambio de login)
 
+  // Esta función obtiene un usuario desde el backend a partir de su email y guarda su id con updateUserId
+  const fetchUserInfoByEmail = async (email) => {
+    try {
+      const userFromBack = await getUserByEmail(email);
+      // Actualiza el ID de usuario en el contexto
+      updateUserId(userFromBack.usuario_id);
+    } catch (error) {
+      console.log(error);
+    }
+  };  
+
   //Con la siguiente función, obtenemos la información del usuario que se loguea 
   //Es una función asíncrona porque se hace una request y tiene que esperar
   async function fetchUserInfo() {
@@ -51,6 +65,8 @@ export default function LoginScreen({ onLoginSuccess }) {
     const useInfo = await response.json();
     //Guardamos la información en nuestra variable del usuario:
     setUser(useInfo);
+    updateUserEmail(useInfo.email);
+    fetchUserInfoByEmail(useInfo.email);
     sendUser(useInfo);
   }
 
@@ -78,7 +94,7 @@ export default function LoginScreen({ onLoginSuccess }) {
           <Image source={{ uri: user.picture }} style={{ width: 100, height: 100, borderRadius: 50 }} />
           <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{user.name}</Text>
           {/* Quizás me plantee cambiar este TouchableOpacity por un button */}
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ArticlesHome')}>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('HomeScreen')}>
             <Text style={styles.buttonText}>Continue</Text>
           </TouchableOpacity>
         </View>

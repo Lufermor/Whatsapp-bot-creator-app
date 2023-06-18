@@ -39,15 +39,7 @@ class Bot_controller:
             if existente:
                 return jsonify({"Error": "Ya existe un bot con el mismo usuario_id y nombre"})
 
-            # Verificar el formato de las horas (HH:MM:SS)
-            # hora_inicio_valida = re.match(r'^\d{2}:\d{2}:\d{2}$', hora_inicio_actividad)
-            # hora_fin_valida = re.match(r'^\d{2}:\d{2}:\d{2}$', hora_fin_actividad)
-            # patrón para comprobar solo horas y minutos:
-            # r'^([01]\d|2[0-3]):([0-5]\d)$'
-
-            # tendremos que asegurarnos de en qué formato nos llegan las horas para poder 
-            # comprobar de una manera u otra
-
+            # Verificar el formato de las horas (HH:MM)
             hora_inicio_valida = validate_time_format(hora_inicio_actividad)
             hora_fin_valida = validate_time_format(hora_fin_actividad)
             if not hora_inicio_valida or not hora_fin_valida:
@@ -57,6 +49,11 @@ class Bot_controller:
             if hora_inicio_actividad >= hora_fin_actividad:
                 return jsonify({"Error": "La hora de inicio de actividad debe ser menor que la hora de fin de actividad"})
 
+            # Cambiar el valor 'activo' a los demás bots del mismo usuario
+            otros_bots = Bot.query.filter_by(usuario_id=usuario_id).all()
+            for bot in otros_bots:
+                bot.activo = False
+
             bot = Bot(usuario_id, nombre, hora_inicio_actividad, hora_fin_actividad)
             db.session.add(bot)
             db.session.commit()
@@ -65,10 +62,19 @@ class Bot_controller:
         except:
             return jsonify({"Error": "Could not create bot"})
 
-
     def get_bot(bot_id):
         """Devuelve un bot dado su bot_id"""
         bot = Bot.query.get(bot_id)
+        return bot_schema.jsonify(bot)
+
+    def delete_bot(bot_id):
+        """Elimina un bot de la base de datos si existe"""
+        bot = Bot.query.get(bot_id)
+
+        if bot is not None:
+            db.session.delete(bot)
+            db.session.commit()
+
         return bot_schema.jsonify(bot)
     
     def update_bot(bot_id):
@@ -81,7 +87,7 @@ class Bot_controller:
             hora_fin_actividad = request.json['hora_fin_actividad']
 
             # Verificar si ya existe otro bot con el mismo usuario_id y nombre
-            existente = Bot.query.filter(Bot.bot_id != bot_id, Bot.usuario_id == bot.usuario_id, Bot.nombre == nombre).first()
+            existente = Bot.query.filter(Bot.bot_id != bot_id, Bot.usuario_id == bot.usuario_id, Bot.nombre == bot.nombre).first()
             if existente:
                 return jsonify({"Error": "Ya existe otro bot con el mismo usuario_id y nombre"})
 
@@ -93,6 +99,12 @@ class Bot_controller:
             if hora_inicio_actividad >= hora_fin_actividad:
                 return jsonify({"Error": "La hora de inicio debe ser menor que la hora de fin"})
 
+            # Cambiar el valor 'activo' a los demás bots del mismo usuario si se está activando este bot
+            if bot.activo:
+                otros_bots = Bot.query.filter(Bot.bot_id != bot_id, Bot.usuario_id == bot.usuario_id).all()
+                for otro_bot in otros_bots:
+                    otro_bot.activo = False
+
             bot.hora_inicio_actividad = hora_inicio_actividad
             bot.hora_fin_actividad = hora_fin_actividad
 
@@ -100,12 +112,3 @@ class Bot_controller:
 
         return bot_schema.jsonify(bot)
 
-    def delete_bot(bot_id):
-        """Elimina un bot de la base de datos si existe"""
-        bot = Bot.query.get(bot_id)
-
-        if bot is not None:
-            db.session.delete(bot)
-            db.session.commit()
-
-        return bot_schema.jsonify(bot)

@@ -18,14 +18,14 @@ export const getArticles = async () => {
   return await res.json();
 };
 
-export const saveArticle = async (title, body) => {
+export const saveArticle = async (newArticle) => {
   const res = await fetch(API, {
     method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ title: title, body: body }),
+    body: JSON.stringify(newArticle),
   });
   return await res.json();
 };

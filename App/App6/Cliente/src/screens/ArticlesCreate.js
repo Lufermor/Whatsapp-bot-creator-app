@@ -1,7 +1,7 @@
 
-import React, { useState, useEffect } from 'react'; //Cuando queremos fetch data, necesitamos usar useEffect
-import { StyleSheet, View, Text, FlatList } from 'react-native';
-import { Card, FAB, TextInput, Button } from 'react-native-paper';
+import React, { useState } from 'react'; //Cuando queremos fetch data, necesitamos usar useEffect
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { TextInput, Button } from 'react-native-paper';
 import { useNavigation } from "@react-navigation/native";
 
 import Layout from '../components/Layout';
@@ -13,9 +13,15 @@ function ArticlesCreate(props) {
 
   const [title, setTitle] = useState("")
   const [body, setBody] = useState("")
+  const [article, setArticle] = useState({
+    title: "",
+    body: "",
+  })
+
+  const handleChange = (name, value) => setArticle({...article, [name]: value})
 
   const insertData = async () => {
-    await saveArticle(title, body)
+    await saveArticle(article)
       .then(data => {
         navigation.navigate('ArticleDetails', { data: data })
       })
@@ -24,21 +30,22 @@ function ArticlesCreate(props) {
 
   return (
     <Layout>
-      <View style={{ flex: 1 }}>
       <TextInput style={styles.inputStyle}
         label="Title"
-        value={title}
+        placeholder='Write a tittle'
+        value={article.title}
         mode="outlined"
-        onChangeText={text => setTitle(text)}
+        onChangeText={text => handleChange( 'title', text)}
       />
-      <TextInput style={{ padding: 10 }}
-        label="Description"
-        value={body}
+      <TextInput style={{ margin: 10, padding:10, width: '90%' }}
+        placeholder='Write a description'
+        value={article.body}
         multiline
         numberOfLines={10}
         mode="outlined"
-        onChangeText={text => setBody(text)}
+        onChangeText={text => handleChange( 'body', text)}
       />
+      <View style={{ flex: 1 }}>
       <Button
         style={{ margin: 10 }}
         icon="pencil"
@@ -46,6 +53,7 @@ function ArticlesCreate(props) {
         onPress={() => insertData()}
       >Insert Article</Button>
       </View>
+      <TouchableOpacity/>
     </Layout>
   )
 }
@@ -75,6 +83,7 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   inputStyle: {
+    width: '90%',
     marginTop: 30,
     padding: 10,
   }

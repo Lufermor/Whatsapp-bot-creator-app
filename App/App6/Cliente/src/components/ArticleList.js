@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";  // When making fetch, it's needed to use useEffect.
-import { StyleSheet, FlatList, SafeAreaView, Alert, RefreshControl} from "react-native";
+import { StyleSheet, FlatList, SafeAreaView, RefreshControl} from "react-native";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 
 import ArticleItem from "./ArticleItem";
@@ -36,14 +36,13 @@ const ArticleList = () => {
       useEffect(() => { loadData();}, [isFocused]);
 
   const renderItem = (item) => {
-    return (
-      <ArticleItem article={item} />
-    );
+    return ( <ArticleItem article={item} /> );
   };
 
   return (
     <SafeAreaView style={{ flex: 1, width: "90%" }}>
       <FlatList
+        style={{ width: "100%" }}
         data={articles}
         keyExtractor={item => `${item.id}`}
         renderItem={({ item }) => {

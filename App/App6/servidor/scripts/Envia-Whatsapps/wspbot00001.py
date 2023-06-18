@@ -3,13 +3,13 @@ import webbrowser
 import pywhatkit
 from time import sleep
 
-webbrowser.open("https://web.whatsapp.com/send?phone=34680683625")  
-sleep(10)
+#webbrowser.open("https://web.whatsapp.com/send?phone=34680683625")  
+# sleep(10)
 
 # pyautogui.typewrite("Hola como estas?\nEsta es la segunda línea0\nEsta es la tercera línea0")
 # pyautogui.press("enter")
 
-pywhatkit.sendwhatmsg("+34680683625", "Mensaje programado", 19, 23)
+# pywhatkit.sendwhatmsg("+34680683625", "Mensaje programado", 18, 14)
 # pywhatkit.sendwhatmsg_instantly("+34680683625", "Hola como estas?\nEsta es la segunda línea3\nEsta es la tercera línea3")
 # pyautogui.press("send")
 
@@ -19,11 +19,13 @@ pywhatkit.sendwhatmsg("+34680683625", "Mensaje programado", 19, 23)
         pyautogui.typewrite(line)
         pyautogui.press("enter")"""
 
-"""with open ("mensaje1.txt", "r") as file:
+with open ("servidor\scripts\Envia-Whatsapps\mensaje1.txt", "r") as file:
+    text = ""
     for line in file:
-        pywhatkit.sendwhatmsg_instantly("+34680683625", line)
+        text += line + "\n"
+    pywhatkit.sendwhatmsg_instantly("+34680683625", text)
         # pyautogui.typewrite(line)
-        # pyautogui.press("enter")"""
+        # pyautogui.press("enter")
 
 '''with open ("mensaje1.txt", "r") as file:
     for line in file:

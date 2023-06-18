@@ -5,9 +5,7 @@ import { StyleSheet, Button, Text, View, Image, TouchableOpacity } from 'react-n
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 
-import Home001 from './src/screens/Home001';
 import ArticlesHome from './src/screens/ArticlesHome';
-import ClassHome001 from './src/screens/ClassHome001';
 import ArticlesCreate from './src/screens/ArticlesCreate';
 import ArticleDetails from './src/screens/ArticleDetails';
 import ArticleEdit from './src/screens/ArticleEdit';
@@ -21,27 +19,68 @@ import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
 
 // Function containing the navigation screens.
-function App(){
+function App() {
   return (
     <Stack.Navigator initialRouteName="LoginScreen">
       <Stack.Screen
-          name="LoginScreen"
-          component={LoginScreen}
-          options={{ headerShown: false }}
-          initialParams={{
-            onLoginSuccess: () => navigation.navigate("ArticlesHome"),
-          }}
-        />
-      <Stack.Screen name = "ArticlesHome" component={ArticlesHome} />
-      <Stack.Screen name = "ArticlesCreate" component={ArticlesCreate} />
-      <Stack.Screen name = "ArticleDetails" component={ArticleDetails} />
-      <Stack.Screen name = "ArticleEdit" component={ArticleEdit} />
+        name="LoginScreen"
+        component={LoginScreen}
+        options={{ headerShown: false }}
+        initialParams={{
+          onLoginSuccess: () => navigation.navigate("ArticlesHome"),
+        }}
+      />
+      <Stack.Screen
+        name="ArticlesHome"
+        component={ArticlesHome}
+        options={({ navigation }) => ({
+          title: "Articles App",
+          headerStyle: {
+            backgroundColor: "#008B8B",
+          },
+          headerTitleStyle: {
+            color: "#ffffff",
+          },
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() => navigation.navigate("ArticlesCreate")}
+            >
+              <Text style={{ color: "#fff", marginRight: 20, fontSize: 15 }}>
+                New
+              </Text>
+            </TouchableOpacity>
+          ),
+        })} />
+      <Stack.Screen name="ArticlesCreate" component={ArticlesCreate} />
+      <Stack.Screen 
+        name="ArticleDetails"
+        component={ArticleDetails}
+        options={({ navigation }) => ({
+          title: "Article details",
+          headerStyle: {
+            backgroundColor: "#008B8B",
+          },
+          headerTitleStyle: {
+            color: "#ffffff",
+          },
+          headerTintColor: "#fff",
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() => navigation.navigate("ArticlesHome")}
+            >
+              <Text style={{ color: "#fff", marginRight: 20, fontSize: 15 }}>
+                Home
+              </Text>
+            </TouchableOpacity>
+          ),
+        })} />
+      <Stack.Screen name="ArticleEdit" component={ArticleEdit} />
     </Stack.Navigator>
   );
 }
 
 // This is the main navigation function
-export default() => {
+export default () => {
   return (
     <NavigationContainer>
       <App />

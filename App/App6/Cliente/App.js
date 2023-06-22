@@ -79,7 +79,7 @@ function App() {
             },
             headerRight: () => (
               <TouchableOpacity
-                onPress={() => navigation.navigate("ArticlesCreate")}
+                onPress={() => navigation.navigate("BotCreate")}
               >
                 <Text style={{ color: "#fff", marginRight: 20, fontSize: 15 }}>
                   New

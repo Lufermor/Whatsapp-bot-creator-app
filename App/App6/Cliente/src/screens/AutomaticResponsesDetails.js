@@ -17,6 +17,7 @@ const AutomaticResponseDetails = (props) => {
   const [keyword, setKeyword] = useState('');
   const isFocused = useIsFocused();
   const [refreshing, setRefreshing] = useState(false);
+  const [bot, setBot] = useState('');
 
   useEffect(() => {
     fetchBotName();
@@ -28,6 +29,7 @@ const AutomaticResponseDetails = (props) => {
     try {
       const bot = await getBot(response.bot_id);
       setBotName(bot.nombre);
+      setBot(bot);
     } catch (error) {
       console.log(error);
     }
@@ -59,7 +61,7 @@ const AutomaticResponseDetails = (props) => {
 
   const handleDelete = async () => {
     await deleteRespuestaAutomatica(response.respuesta_id)
-      .then(() => navigation.navigate('AutomaticResponsesHome'))
+      .then(() => navigation.navigate('AutomaticResponsesHome', { data: bot }))
       .catch((error) => console.log(error));
   };
 

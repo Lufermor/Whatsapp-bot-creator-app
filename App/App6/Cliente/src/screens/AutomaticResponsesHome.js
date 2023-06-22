@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, FlatList, SafeAreaView, RefreshControl, Dimensions } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { FAB } from 'react-native-paper';
 
 import AutomaticResponseItem from '../components/AutomaticResponsesItem';
@@ -10,6 +10,7 @@ import { getRespuestasAutomaticasByBot } from '../api/RespuestaAutomaticaRoutes.
 function AutomaticResponsesHome(props) {
   const navigation = useNavigation();
   const botData = props.route.params.data;
+  const isFocused = useIsFocused();
   console.log(props.route.params)
 
   const [automaticResponses, setAutomaticResponses] = useState([]);
@@ -32,7 +33,7 @@ function AutomaticResponsesHome(props) {
 
   useEffect(() => {
     loadData();
-  }, []);
+  }, [isFocused]);
 
   const renderResponseItem = ({ item }) => {
     return <AutomaticResponseItem response={item} />;

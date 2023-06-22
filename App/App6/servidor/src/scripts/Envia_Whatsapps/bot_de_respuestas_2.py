@@ -18,6 +18,7 @@ def bot():
     to_phone_number = request.values.get('To').split('+')[1]
     bot_activo = ""
     plantilla = ""
+    print(request.values)
     
     resp = MessagingResponse()
     msg = resp.message()

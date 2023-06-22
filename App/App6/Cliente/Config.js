@@ -1,6 +1,6 @@
 //export const ip = '192.168.56.1';
 // ip en casa Raul:
-//export const ip = '192.168.6.73';
+// export const api_ip = '192.168.1.144:3000';
 // ip en BT3:
 //export const ip = '192.168.10.22';
 // ip en casa:
